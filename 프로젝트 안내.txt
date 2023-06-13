@@ -1,0 +1,22 @@
+수행 방법
+
+1. application.properties
+- 본인의 환경에 맞게 url, username, password를 입력해주세요
+2. BoardController 각 메소드 작성
+3. BoardService 인터페이스를 implement 해서 BoardServiceImpl 클래스 작성
+   -> BoardMapper를 참고
+4. LoggingAop 작성
+
+그 외는 평가 기준표 참고
+
+어렵다면 강의 내용과 이미 작성되어 있는 힌트들을 참고하세요.
+
+========================================
+
+혹시 과제를 이미 다 수행했다면,
+
+댓글을 추가로 구현해보세요.
+aop를 활용하여 메소드 이름이 출력되도록 해보세요
+조회시에 실패했을 때를 가정에 Exception 처리를 시도해보세요. ExceptionHandler를 사용하면 더욱 좋습니다.
+프로젝트가 성공적으로 완료되었다면 AWS에 배포하여 보세요
+
