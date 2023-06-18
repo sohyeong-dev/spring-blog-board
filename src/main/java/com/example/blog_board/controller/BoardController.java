@@ -3,6 +3,9 @@ package com.example.blog_board.controller;
 import com.example.blog_board.domain.Board;
 import com.example.blog_board.service.BoardService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +18,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BoardController {
 
+//    @Autowired
+//    WebApplicationContext servletAC; // Servlet AC 주입
+
+    @Autowired @Qualifier("boardServiceImpl")
     private final BoardService boardService;
 
     @GetMapping("/hello")
@@ -48,6 +55,12 @@ public class BoardController {
         Board board = boardService.findById(boardId);
         model.addAttribute("board", board);
 
+        if (board == null) {
+            // 조회 실패
+
+            throw new BoardNotFoundException();
+        }
+
         return "/board/board";
     }
 
@@ -68,6 +81,9 @@ public class BoardController {
     public String editForm(@PathVariable Long boardId, Model model){
         /* TODO 수정 작업 전에 board id로 기존 board 조회 */
         Board findBoard = boardService.findById(boardId);
+        if (findBoard == null) {
+            throw new BoardNotFoundException("조회 실패");
+        }
         model.addAttribute("board", findBoard);
 
         return "board/editForm";
@@ -102,4 +118,25 @@ public class BoardController {
     }
 
 
+
+    @ExceptionHandler(BoardNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String boardNotFound(Model model) {
+        return main(model);
+    }
+
+}
+
+/**
+ * 조회 실패 Exception
+ */
+class BoardNotFoundException extends RuntimeException {
+
+    BoardNotFoundException(String msg) {
+        super(msg);
+    }
+
+    BoardNotFoundException() {
+        super("");
+    }
 }

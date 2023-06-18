@@ -22,16 +22,16 @@
         </div>
         <div>
             <label for="title">제목</label>
-            <input type="text" id="title" name="title" class="formcontrol" placeholder="제목을 입력해주세요">
+            <input type="text" id="title" name="title" class="formcontrol" th:value="${board.title}" placeholder="제목을 입력해주세요">
         </div>
         <div>
             <label for="content">본문</label>
-            <input type="text" id="content" name="content" class="form-control"
+            <input type="text" id="content" name="content" class="form-control" th:value="${board.content}"
                    placeholder="본문을 입력해주세요">
         </div>
         <div>
             <label for="name">글쓴이</label>
-            <input type="text" id="name" name="name" class="form-control"
+            <input type="text" id="name" name="name" class="form-control" th:value="${board.name}"
                    placeholder="닉네임을 입력해주세요">
         </div>
         <hr class="my-4">
